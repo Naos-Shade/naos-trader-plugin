@@ -48,35 +48,35 @@ public class TraderManager {
     public List<MerchantRecipe> buildTrades() {
         List<MerchantRecipe> trades = new ArrayList<>();
 
-        // 5 pierre → 1 émeraude
+        // 5 cobblestone → 1 émeraude
         MerchantRecipe stone = new MerchantRecipe(new ItemStack(Material.EMERALD), 0, Integer.MAX_VALUE, false, 0, 0f);
-        stone.addIngredient(new ItemStack(Material.STONE, 5));
+        stone.addIngredient(new ItemStack(Material.COBBLESTONE, 5));
         trades.add(stone);
 
-        // 7 émeraudes → casque diamant + Protection III
-        trades.add(armorTrade(Material.DIAMOND_HELMET, Enchantment.PROTECTION, 3));
-        // 7 émeraudes → plastron diamant + Protection III
-        trades.add(armorTrade(Material.DIAMOND_CHESTPLATE, Enchantment.PROTECTION, 3));
-        // 7 émeraudes → jambières diamant + Protection III
-        trades.add(armorTrade(Material.DIAMOND_LEGGINGS, Enchantment.PROTECTION, 3));
-        // 7 émeraudes → bottes diamant + Protection III
-        trades.add(armorTrade(Material.DIAMOND_BOOTS, Enchantment.PROTECTION, 3));
+        // casque diamant + Protection III
+        trades.add(armorTrade(Material.DIAMOND_HELMET, Enchantment.PROTECTION, 3, 12));
+        // plastron diamant + Protection III
+        trades.add(armorTrade(Material.DIAMOND_CHESTPLATE, Enchantment.PROTECTION, 3, 15));
+        // jambières diamant + Protection III
+        trades.add(armorTrade(Material.DIAMOND_LEGGINGS, Enchantment.PROTECTION, 3, 14));
+        // bottes diamant + Protection III
+        trades.add(armorTrade(Material.DIAMOND_BOOTS, Enchantment.PROTECTION, 3, 11));
 
-        // 7 émeraudes → épée diamant + Tranchant III
+        // 13 émeraudes → épée diamant + Tranchant II
         ItemStack sword = new ItemStack(Material.DIAMOND_SWORD);
-        sword.addEnchantment(Enchantment.SHARPNESS, 3);
+        sword.addEnchantment(Enchantment.SHARPNESS, 2);
         MerchantRecipe swordTrade = new MerchantRecipe(sword, 0, Integer.MAX_VALUE, false, 0, 0f);
-        swordTrade.addIngredient(new ItemStack(Material.EMERALD, 7));
+        swordTrade.addIngredient(new ItemStack(Material.EMERALD, 13));
         trades.add(swordTrade);
 
         return trades;
     }
 
-    private MerchantRecipe armorTrade(Material material, Enchantment enchant, int level) {
+    private MerchantRecipe armorTrade(Material material, Enchantment enchant, int level, int price) {
         ItemStack item = new ItemStack(material);
         item.addEnchantment(enchant, level);
         MerchantRecipe trade = new MerchantRecipe(item, 0, Integer.MAX_VALUE, false, 0, 0f);
-        trade.addIngredient(new ItemStack(Material.EMERALD, 7));
+        trade.addIngredient(new ItemStack(Material.EMERALD, price));
         return trade;
     }
 }
