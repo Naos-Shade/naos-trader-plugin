@@ -1,5 +1,6 @@
 package fr.naossmp.trader;
 
+import fr.naossmp.trader.listeners.SmithListener;
 import fr.naossmp.trader.listeners.TradeListener;
 import org.bukkit.Material;
 import org.bukkit.NamespacedKey;
@@ -27,6 +28,7 @@ public class NaosTrader extends JavaPlugin {
 
         registerRecipe();
         getServer().getPluginManager().registerEvents(new TradeListener(this), this);
+        getServer().getPluginManager().registerEvents(new SmithListener(), this);
 
         getLogger().info("NaosTrader activé !");
     }
