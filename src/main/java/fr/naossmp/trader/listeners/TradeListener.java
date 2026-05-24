@@ -8,8 +8,8 @@ import org.bukkit.entity.Player;
 import org.bukkit.entity.Villager;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
-import org.bukkit.event.entity.EntityLoadEvent;
 import org.bukkit.event.player.PlayerInteractEntityEvent;
+import org.bukkit.event.world.ChunkLoadEvent;
 import org.bukkit.inventory.EquipmentSlot;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.persistence.PersistentDataType;
@@ -63,16 +63,18 @@ public class TradeListener implements Listener {
         player.sendMessage("§6Ce villageois est maintenant un §lMaître Marchand§6 !");
     }
 
+    // Réappliquer les trades si le chunk se recharge et que les trades ont été vidés
     @EventHandler
-    public void onEntityLoad(EntityLoadEvent event) {
-        if (!(event.getEntity() instanceof Villager villager)) return;
-        if (!villager.getPersistentDataContainer()
-                .has(plugin.getCustomTraderKey(), PersistentDataType.INTEGER)) return;
+    public void onChunkLoad(ChunkLoadEvent event) {
+        for (Entity entity : event.getChunk().getEntities()) {
+            if (!(entity instanceof Villager villager)) continue;
+            if (!villager.getPersistentDataContainer()
+                    .has(plugin.getCustomTraderKey(), PersistentDataType.INTEGER)) continue;
 
-        // Réappliquer les trades si le villageois a été réinitialisé au restart
-        if (villager.getRecipes().isEmpty()) {
-            villager.setRecipes(plugin.getTraderManager().buildTrades());
+            plugin.getTraderManager().addVillager(villager.getUniqueId());
+            if (villager.getRecipes().isEmpty()) {
+                villager.setRecipes(plugin.getTraderManager().buildTrades());
+            }
         }
-        plugin.getTraderManager().addVillager(villager.getUniqueId());
     }
 }
