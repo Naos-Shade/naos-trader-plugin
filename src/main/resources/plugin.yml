@@ -1,0 +1,5 @@
+name: NaosTrader
+version: 1.0
+main: fr.naossmp.trader.NaosTrader
+api-version: '1.21'
+description: Système de villageois marchand custom pour Naos SMP
