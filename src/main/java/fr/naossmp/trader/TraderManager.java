@@ -53,6 +53,11 @@ public class TraderManager {
         stone.addIngredient(new ItemStack(Material.COBBLESTONE, 5));
         trades.add(stone);
 
+        // 1 émeraude → 5 fioles d'XP
+        MerchantRecipe xpTrade = new MerchantRecipe(new ItemStack(Material.EXPERIENCE_BOTTLE, 5), 0, Integer.MAX_VALUE, false, 0, 0f);
+        xpTrade.addIngredient(new ItemStack(Material.EMERALD, 1));
+        trades.add(xpTrade);
+
         // casque diamant + Protection III
         trades.add(armorTrade(Material.DIAMOND_HELMET, Enchantment.PROTECTION, 3, 12));
         // plastron diamant + Protection III
